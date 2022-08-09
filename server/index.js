@@ -49,6 +49,19 @@ app.post("/create", (req, res) => {
      );
 });
 
+// Get request to get all employees from the database
+
+app.get("/employees", (req, res) => {
+     connection.query("SELECT * FROM employees", (err, results) => {
+          if (err) {
+               console.log(err);
+               res.sendStatus(500);
+          } else {
+               res.send(results);
+          }
+     });
+});
+
 // launch server on port 3001
 app.listen(3001, () => {
      console.log("Server listening on port 3001");

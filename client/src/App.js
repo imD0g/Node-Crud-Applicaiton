@@ -32,6 +32,16 @@ function App() {
           });
      };
 
+     // Pull the data from the server and store it in the state variable.
+     // Axios.get is sending the data to the server.
+     // Axios.get (url).then (callback function)
+     const getEmployees = () => {
+          Axios.get("http://localhost:3001/employees").then((response) => {
+               setEmployeeList(response.data);
+          });
+     };
+
+     // The form is rendered here.
      return (
           <div className="App">
                <div className="information">
@@ -83,7 +93,35 @@ function App() {
                </div>
                <br></br> {/* This is a break tag */}
                <div className="employees">
-                    <button>Show employees in the Database</button>
+                    <button onClick={getEmployees}>
+                         Show employees in the Database
+                    </button>
+                    {/*Here we are showing the employees from the database*/}
+                    {employeeList.map((val, key) => {
+                         return (
+                              <div className="displayEmployee">
+                                   <h3>
+                                        Name: <br></br>
+                                        {val.name}
+                                   </h3>
+                                   <h3>
+                                        Age: <br></br>
+                                        {val.age}
+                                   </h3>
+                                   <h3>
+                                        Country: <br></br>
+                                        {val.country}
+                                   </h3>
+                                   <h3>
+                                        Position: <br></br>
+                                        {val.position}
+                                   </h3>
+                                   <h3>
+                                        Wage: <br></br>£{val.wage}
+                                   </h3>
+                              </div>
+                         );
+                    })}
                </div>
           </div>
      );
